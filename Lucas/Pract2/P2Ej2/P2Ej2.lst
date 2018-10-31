@@ -1,0 +1,65 @@
+     1: 
+     2: #include <htc.h>           /* necesaria para funciones y archivos de proteus */
+     3: #define _XTAL_FREQ 1000000 /* indicamos la frecuencia del sistema: 1Mhz */
+     4: #define LED_ROJO RB4
+     5: #define LED_VERDE RB5
+     6: #define BOTON1 RA0
+     7: #define BOTON2 RA1
+     8: 
+     9: void config(void);
+    10: void toggleLeds(void);
+    11: void interrupt handler(void);
+    12: unsigned char desborde=0;
+    13: 
+    14: void main()
+    15: {
+    16:     /* estado inicial */
+    17:     config();
+    18:     LED_ROJO = 1;
+    19:     LED_VERDE = 1;
+    20: 
+    21:     /* esperar una pulsación */
+    22:     while (BOTON1 && BOTON2)
+    23:     {
+    24:         //esperar a que se pulse un botón
+    25:     }
+    26: 
+    27:     /* habilitar interrupción de timer0 */
+    28:     T0IE = 1;
+    29: 
+    30:     /* loop infinito */
+    31:     while (1)
+    32:     {
+    33:         if (desborde)
+    34:         {
+    35:             toggleLeds();
+    36:             desborde = 0;
+    37:         }
+    38:     }
+    39: }
+    40: void toggleLeds()
+    41: {
+    42:     LED_ROJO = !LED_ROJO;
+    43:     LED_VERDE = !LED_VERDE;
+    44: }
+    45: void config()
+    46: {
+    47:     /* Un cero en TRISX setea al puerto X como salida */
+    48:     TRISB = 0xCF; /* Configuros pines 4 y 5 del puerto B como salida */
+    49:     TRISA = 0x1F; /* Configuros pines 0 y 1 del puerto A como entrada */
+    50: 
+    51:     /* configuración del timer0 */
+    52:     T0CS = 0; /* elegimos como fuene el reloj interno. timer como temporizador */
+    53:     T0SE = 1; /* contamos cada flanco descendente de clk */
+    54:     PSA = 0;  /* le asignamos el prescalador al Timer0 */
+    55:     PS2 = 1;  /* Ponemos el prescalador en 256*/
+    56:     PS1 = 1;  /* Ponemos el prescalador en 256*/
+    57:     PS0 = 1;  /* Ponemos el prescalador en 256*/
+    58:     GIE = 1;  /* habilitamos instrrupciones en general */
+    59: }
+    60: 
+    61: void interrupt handler(){
+    62:     GIE=0; /* deshabilitamoms interrupciones */
+    63:     desborde=1;
+    64:     T0IF=0;
+    65: }

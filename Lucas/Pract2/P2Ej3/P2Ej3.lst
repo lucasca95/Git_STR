@@ -1,0 +1,55 @@
+     1: #include <htc.h>
+     2: #define _XTAL_FREQ 1000000
+     3: 
+     4: void configADC(void);
+     5: void configSalidas(void);
+     6: 
+     7: void main()
+     8: {
+     9:     unsigned short resul = 0;
+    10: 
+    11:     configADC();
+    12:     configSalidas();
+    13:     RD7 = 0;
+    14:     RD6 = 0;
+    15: 
+    16:     GO = 1; /* iniciar conversión */
+    17:     while (1)
+    18:     {
+    19:         while (GO)
+    20:         {
+    21:         }
+    22:         /* termine de convertir */
+    23:         resul = ADRESH << 8 | ADRESL;
+    24:         /* INICIO mandar a imprimir al display */
+    25:         PORTB = ADRESH; /* mando a copiar el valor al latch superior */
+    26:         RD7 = 1;
+    27:         __delay_ms(100); /* espero 100ms a que el latch copie el valor */
+    28:         RD7 = 0;
+    29:         PORTB = ADRESL; /* mando a copiar el valor al latch inferior */
+    30:         RD6 = 1;
+    31:         __delay_ms(100); /* espero 100ms a que el latch copie el valor */
+    32:         RD6 = 0;
+    33:         /* FIN mandar a imprimir al display */
+    34:         GO = 1;
+    35:     }
+    36: }
+    37: 
+    38: void configADC()
+    39: {
+    40:     ADCON1 = 0b10000101; /* bits justificados a derecha
+    41:     RA3 es Vref+, RA0 es entrada analógica */
+    42: 
+    43:     ADCON0 = 0b01000001; /* una conversión tarda 8 tics. vamos a convertir el canal 0.
+    44:     actualmente no hay conversión en proceso. el adc está encendido */
+    45: 
+    46:     TRISA = 0b00001001; /* configurar pines A0 y A3 como entradas */
+    47: 
+    48:     ADIE = 0; /* no trabajamos con adc por interrupción */
+    49: }
+    50: 
+    51: void configSalidas()
+    52: {
+    53:     TRISB = 0b00000000; /* pongo todo el puerto B como salida a los latch */
+    54:     TRISD = 0b00000000; /* pongo todo el puerto D como salida a los latch*/
+    55: }

@@ -1,0 +1,8 @@
+Somos el grupo 11. Nos tocó el proyecto 4.
+
+Se debe:
+**Informar periódicamente el nivel de agua de un tanque
+**Permitir que se active la bomba de manera remota en caso de ser necesario
+**Si hay poca agua, activar bomba
+**Si hay demasiada agua, parar bomba
+**Si se abre tapa del tanque, prender luz
