@@ -205,110 +205,105 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EECON1bits `VS20 1 e@136 ]
 "298 C:\PROGRA~2\HI-TEC~1\PICC\9.81\include\pic16f84a.h
 [v _EECON2 `Vuc 1 e@137 ]
+"6 ..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Repaso Prácticas\Práctica 2\Ej2.c
+[v _toggleLeds `uc 1 e ]
 [p mainexit ]
-"4 ..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Prácticas\Pract2\P2Ej3\P2Ej3.c
-[v _configADC `(v 0 ef ]
-"5 ..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Prácticas\Pract2\P2Ej3\P2Ej3.c
-[v _configSalidas `(v 0 ef ]
-"148 C:\PROGRA~2\HI-TEC~1\PICC\9.81\include\pic.h
-[v __delay `(v 0 ef1`ul ]
-[p i __delay ]
-"8 ..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Prácticas\Pract2\P2Ej3\P2Ej3.c
-[v _main `(v 1 ef ]
+"6 ..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Repaso Prácticas\Práctica 2\Ej2.c
+[i _toggleLeds
+-> -> 0 `i `uc
+]
+"8
+[v _main `(i 1 ef ]
 {
 [e :U _main ]
 [f ]
 "9
-[v _resul `us 1 a ]
-[e = _resul -> -> 0 `i `us ]
-"11
-[e ( _configADC ..  ]
-"12
-[e ( _configSalidas ..  ]
-[v _RD7 `i 1 s ]
+[e = _T0IE -> -> 0 `i `b ]
+"10
+[e = _GIE -> -> 0 `i `b ]
 "13
-[e = _RD7 -> 0 `i ]
-[v _RD6 `i 1 s ]
+[e = _TRISA -> -> 3 `i `uc ]
 "14
-[e = _RD6 -> 0 `i ]
-[v _GO `i 1 s ]
+[e = _TRISB -> -> 0 `i `uc ]
 "16
-[e = _GO -> 1 `i ]
+[e = _RB4 -> -> 1 `i `b ]
 "17
-[e :U 24 ]
-"18
-{
-"19
-[e $U 26  ]
-[e :U 27 ]
+[e = _RB5 -> -> 1 `i `b ]
 "20
-{
+[e = _T0CS -> -> 0 `i `b ]
 "21
-}
-[e :U 26 ]
-"19
-[e $ != _GO -> 0 `i 27  ]
-[e :U 28 ]
-[v _ADRESH `i 1 s ]
-[v _ADRESL `i 1 s ]
+[e = _T0SE -> -> 1 `i `b ]
+"22
+[e = _PSA -> -> 0 `i `b ]
 "23
-[e = _resul -> | << _ADRESH -> 8 `i _ADRESL `us ]
+[e = _PS2 -> -> 1 `i `b ]
+"24
+[e = _PS1 -> -> 1 `i `b ]
 "25
-[e = _PORTB -> _ADRESH `uc ]
-"26
-[e = _RD7 -> 1 `i ]
+[e = _PS0 -> -> 1 `i `b ]
 "27
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+[e $U 23  ]
+[e :U 24 ]
 "28
-[e = _RD7 -> 0 `i ]
-"29
-[e = _PORTB -> _ADRESL `uc ]
+{
 "30
-[e = _RD6 -> 1 `i ]
-"31
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
-"32
-[e = _RD6 -> 0 `i ]
-"34
-[e = _GO -> 1 `i ]
-"35
 }
 [e :U 23 ]
-"17
-[e $U 24  ]
+"27
+[e $ && _RA0 _RA1 24  ]
 [e :U 25 ]
+"32
+[e = _GIE -> -> 1 `i `b ]
+"33
+[e = _T0IE -> -> 1 `i `b ]
+"35
+{
 "36
+[e :U 26 ]
+{
+"37
+[e $ ! != -> _toggleLeds `i -> -> -> 0 `i `uc `i 29  ]
+"38
+{
+"39
+[e = _toggleLeds -> -> 0 `i `uc ]
+"40
+[e = _RB4 ! _RB4 ]
+"41
+[e = _RB5 ! _RB5 ]
+"42
+}
+[e :U 29 ]
+"43
+}
+[e $U 26  ]
+[e :U 27 ]
+}
+"45
+[e ) -> 0 `i ]
+[e $UE 22  ]
+"46
 [e :UE 22 ]
 }
-"39
-[v _configADC `(v 1 ef ]
-{
-[e :U _configADC ]
-[f ]
-[v _ADCON1 `i 1 s ]
-"40
-[e = _ADCON1 -> 133 `i ]
-[v _ADCON0 `i 1 s ]
-"43
-[e = _ADCON0 -> 65 `i ]
-"46
-[e = _TRISA -> -> 9 `i `uc ]
-[v _ADIE `i 1 s ]
-"48
-[e = _ADIE -> 0 `i ]
+"5
+[v F251 `(v 1 tf ]
 "49
-[e :UE 29 ]
-}
-"52
-[v _configSalidas `(v 1 ef ]
+[v _handler `IF251 1 e ]
 {
-[e :U _configSalidas ]
+[e :U _handler ]
 [f ]
+"50
+[e = _GIE -> -> 0 `i `b ]
+"51
+[e = _T0IE -> -> 0 `i `b ]
+"52
+[e = _toggleLeds -> -> 1 `i `uc ]
 "53
-[e = _TRISB -> -> 0 `i `uc ]
-[v _TRISD `i 1 s ]
+[e = _T0IF -> -> 0 `i `b ]
 "54
-[e = _TRISD -> 0 `i ]
+[e = _T0IE -> -> 1 `i `b ]
 "55
+[e = _GIE -> -> 1 `i `b ]
+"56
 [e :UE 30 ]
 }

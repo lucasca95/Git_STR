@@ -1,5 +1,5 @@
 
-# 1 "..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Prácticas\Pract2\P2Ej3\P2Ej3.c"
+# 1 "..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Repaso Prácticas\Práctica 2\Ej1.c"
 
 # 53 "C:\PROGRA~2\HI-TEC~1\PICC\9.81\include\pic16f84a.h"
 volatile unsigned char INDF @ 0x000;
@@ -263,56 +263,24 @@ extern unsigned char eeprom_read(unsigned char addr);
 #pragma inline(_delay)
 extern void _delay(unsigned long);
 
-# 4 "..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Prácticas\Pract2\P2Ej3\P2Ej3.c"
-void configADC(void);
-void configSalidas(void);
+# 5 "..\..\..\..\..\..\..\Users\User\Documents\Facultad\Sistemas de Tiempo Real\Git_STR\Repaso Prácticas\Práctica 2\Ej1.c"
+int main(){
 
-void main()
-{
-unsigned short resul = 0;
+TRISA=0b00000011;
+TRISB=0b00000000;
 
-configADC();
-configSalidas();
-RD7 = 0;
-RD6 = 0;
+RB4=1;
+RB5=1;
 
-GO = 1;
-while (1)
-{
-while (GO)
-{
+while ((RA0) && (RA1)){
+
 }
 
-resul = ADRESH << 8 | ADRESL;
-
-PORTB = ADRESH;
-RD7 = 1;
-_delay((unsigned long)((100)*(1000000/4000.0)));
-RD7 = 0;
-PORTB = ADRESL;
-RD6 = 1;
-_delay((unsigned long)((100)*(1000000/4000.0)));
-RD6 = 0;
-
-GO = 1;
-}
+for(;;){
+RB4=!RB4;
+RB5=!RB5;
+_delay((unsigned long)((250)*(1000000/4000.0)));
 }
 
-void configADC()
-{
-ADCON1 = 0b10000101;
-
-# 43
-ADCON0 = 0b01000001;
-
-# 46
-TRISA = 0b00001001;
-
-ADIE = 0;
-}
-
-void configSalidas()
-{
-TRISB = 0b00000000;
-TRISD = 0b00000000;
+return 0;
 }
