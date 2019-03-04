@@ -1,9 +1,5 @@
 #include <Arduino_FreeRTOS.h>
 
-// define two tasks for Blink & AnalogRead
-void TaskBlink( void *pvParameters );
-void TaskAnalogRead( void *pvParameters );
-
 // the setup function runs once when you press reset or power the board
 void setup() {
 
